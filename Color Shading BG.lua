@@ -114,7 +114,7 @@ function showColorsBG()
     text = "Get",
     onclick = function()
       dlgbg:close()
-      showColors()
+      showColorsBG()
     end
   }:shades {
     -- SHADING
