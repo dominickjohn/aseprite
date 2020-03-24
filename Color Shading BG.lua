@@ -78,36 +78,36 @@ function showColorsBG()
   local Cbg = app.bgColor
 
   -- SHADING COLORS
-  local S1bg = colorShift(C, 0, 0.3, -0.6, -0.6)
-  local S2bg = colorShift(C, 0, 0.2, -0.2, -0.3)
-  local S3bg = colorShift(C, 0, 0.1, -0.1, -0.1)
-  local S5bg = colorShift(C, 0, 0.1, 0.1, 0.1)
-  local S6bg = colorShift(C, 0, 0.2, 0.2, 0.2)
-  local S7bg = colorShift(C, 0, 0.3, 0.5, 0.4)
+  local S1bg = colorShift(Cbg, 0, 0.3, -0.6, -0.6)
+  local S2bg = colorShift(Cbg, 0, 0.2, -0.2, -0.3)
+  local S3bg = colorShift(Cbg, 0, 0.1, -0.1, -0.1)
+  local S5bg = colorShift(Cbg, 0, 0.1, 0.1, 0.1)
+  local S6bg = colorShift(Cbg, 0, 0.2, 0.2, 0.2)
+  local S7bg = colorShift(Cbg, 0, 0.3, 0.5, 0.4)
 
   -- LIGHTNESS COLORS
-  local L1bg = colorShift(C, 0, 0, -0.4, 0)
-  local L2bg = colorShift(C, 0, 0, -0.2, 0)
-  local L3bg = colorShift(C, 0, 0, -0.1, 0)
-  local L5bg = colorShift(C, 0, 0, 0.1, 0)
-  local L6bg = colorShift(C, 0, 0, 0.2, 0)
-  local L7bg = colorShift(C, 0, 0, 0.4, 0)
+  local L1bg = colorShift(Cbg, 0, 0, -0.4, 0)
+  local L2bg = colorShift(Cbg, 0, 0, -0.2, 0)
+  local L3bg = colorShift(Cbg, 0, 0, -0.1, 0)
+  local L5bg = colorShift(Cbg, 0, 0, 0.1, 0)
+  local L6bg = colorShift(Cbg, 0, 0, 0.2, 0)
+  local L7bg = colorShift(Cbg, 0, 0, 0.4, 0)
 
   -- SATURATION COLORS
-  local C1bg = colorShift(C, 0, -0.5, 0, 0)
-  local C2bg = colorShift(C, 0, -0.2, 0, 0)
-  local C3bg = colorShift(C, 0, -0.1, 0, 0)
-  local C5bg = colorShift(C, 0, 0.1, 0, 0)
-  local C6bg = colorShift(C, 0, 0.2, 0, 0)
-  local C7bg = colorShift(C, 0, 0.5, 0, 0)
+  local C1bg = colorShift(Cbg, 0, -0.5, 0, 0)
+  local C2bg = colorShift(Cbg, 0, -0.2, 0, 0)
+  local C3bg = colorShift(Cbg, 0, -0.1, 0, 0)
+  local C5bg = colorShift(Cbg, 0, 0.1, 0, 0)
+  local C6bg = colorShift(Cbg, 0, 0.2, 0, 0)
+  local C7bg = colorShift(Cbg, 0, 0.5, 0, 0)
 
   -- HUE COLORS
-  local H1bg = colorShift(C, -0.15, 0, 0, 0)
-  local H2bg = colorShift(C, -0.1, 0, 0, 0)
-  local H3bg = colorShift(C, -0.05, 0, 0, 0)
-  local H5bg = colorShift(C, 0.05, 0, 0, 0)
-  local H6bg = colorShift(C, 0.1, 0, 0, 0)
-  local H7bg = colorShift(C, 0.15, 0, 0, 0)
+  local H1bg = colorShift(Cbg, -0.15, 0, 0, 0)
+  local H2bg = colorShift(Cbg, -0.1, 0, 0, 0)
+  local H3bg = colorShift(Cbg, -0.05, 0, 0, 0)
+  local H5bg = colorShift(Cbg, 0.05, 0, 0, 0)
+  local H6bg = colorShift(Cbg, 0.1, 0, 0, 0)
+  local H7bg = colorShift(Cbg, 0.15, 0, 0, 0)
 
   -- DIALOGUE
   dlgbg:color {label = "Current Color", color = Cbg}:button {
