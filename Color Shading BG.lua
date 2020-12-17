@@ -1,2 +1,0 @@
--- ****** ***  Script longer needed ********* 
--- latest Color Shading script allows both Foreground and Background color picking based on mouse clicks
