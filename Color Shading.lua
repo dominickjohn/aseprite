@@ -43,7 +43,7 @@ function colorShift(color, hueShift, satShift, lightShift, shadeShift)
   local newColor = Color(color) -- Make a copy of the color so we don't modify the parameter
 
   -- SHIFT HUE
-  newColor.hue = newColor.hue + hueShift * 359
+  newColor.hslHue = (newColor.hslHue + hueShift * 360) % 360
 
   -- SHIFT SATURATION
   if (satShift > 0) then
