@@ -1,5 +1,6 @@
--- Aseprite Script to open palette picker window with relevant color shades
--- Written by Dominick John, @dominickjohn
+-- Color Shading v2.0
+-- Aseprite Script that opens a dynamic palette picker window with relevant color shading options
+-- Written by Dominick John, twitter @dominickjohn
 -- Contributed to by David Capello
 -- https://github.com/dominickjohn/aseprite/
 
@@ -8,11 +9,11 @@
 --    Run the "Color Shading" script (File -> Scripts -> Color Shading) to open the palette window.
 
 -- Commands:
---    "Get" Button: Regenerate color shades based on current foreground color.
---    Left click: Set clicked color as foreground color
---    Right click: Set clicked color as background color
---    Middle click: Regenerate all shades based on clicked color
---    "Base Color" picker: Non-functional (reference only)
+--    Base: Clicking on either base color will switch the shading palette to that saved color base.
+--    "Get" Button: Updates base colors using the current foreground and background color and regenerates shading.
+--    Left click: Set clicked color as foreground color.
+--    Right click: Set clicked color as background color.
+--    Middle click: Set clicked color as foreground color and regenerate all shades based on this new color.
 
 function lerp(first, second, by)
   return first * (1 - by) + second * by
@@ -76,18 +77,29 @@ function colorShift(color, hueShift, satShift, lightShift, shadeShift)
   return newColor
 end
 
-function showColors()
+function showColors(shadingColor, fg, bg, windowBounds)
   local dlg
   dlg =
     Dialog {
-    title = "Color Shading",
-    onclose = function()
-      ColorShadingWindowBounds = dlg.bounds
-    end
+    title = "Color Shading"
   }
 
-  -- CURRENT FOREGROUND COLOR
+  -- CACHING
+  local FGcache = app.fgColor
+  if(fg ~= nil) then
+    FGcache = fg
+  end
+
+  local BGcache = app.bgColor
+  if(bg ~= nil) then
+    BGcache = bg
+  end
+
+  -- CURRENT CORE COLOR TO GENERATE SHADING
   local C = app.fgColor
+  if(shadingColor ~= nil) then
+    C = shadingColor
+  end
 
   -- SHADING COLORS
   local S1 = colorShift(C, 0, 0.3, -0.6, -0.6)
@@ -123,14 +135,22 @@ function showColors()
 
   -- DIALOGUE
   dlg:
-  color {
+  shades {
+     -- SAVED COLOR BASES
+    id = "base",
     label = "Base",
-    color = C
+    colors = {FGcache, BGcache},
+    onclick = function(ev)
+      showColors(ev.color, FGcache, BGcache, dlg.bounds)
+      dlg:close()
+    end
   }:button {
+    -- GET BUTTON
+    id = "get",
     text = "Get",
     onclick = function()
+      showColors(app.fgColor, app.fgColor, app.bgColor, dlg.bounds)
       dlg:close()
-      showColors()
     end
   }:shades {
      -- SHADING
@@ -138,15 +158,17 @@ function showColors()
     label = "Shade",
     colors = {S1, S2, S3, C, S5, S6, S7},
     onclick = function(ev)
-      if(ev.button == 1) then
+      if(ev.button == MouseButton.LEFT) then
         app.fgColor = ev.color
-      elseif(ev.button == 2) then
+        showColors(SCcache, FGcache, BGcache, dlg.bounds)
+      elseif(ev.button == MouseButton.RIGHT) then
         app.bgColor = ev.color
-      elseif(ev.button == 3) then
+        showColors(SCcache, FGcache, BGcache, dlg.bounds)
+      elseif(ev.button == MouseButton.MIDDLE) then
         app.fgColor = ev.color
-        dlg:close()
-        showColors()
+        showColors(ev.color, FGcache, BGcache, dlg.bounds)
       end
+      dlg:close()
     end
   }:shades {
      -- LIGHTNESS
@@ -154,15 +176,17 @@ function showColors()
     label = "Light",
     colors = {L1, L2, L3, C, L5, L6, L7},
     onclick = function(ev)
-      if(ev.button == 1) then
+      if(ev.button == MouseButton.LEFT) then
         app.fgColor = ev.color
-      elseif(ev.button == 2) then
+        showColors(SCcache, FGcache, BGcache, dlg.bounds)
+      elseif(ev.button == MouseButton.RIGHT) then
         app.bgColor = ev.color
-      elseif(ev.button == 3) then
+        showColors(SCcache, FGcache, BGcache, dlg.bounds)
+      elseif(ev.button == MouseButton.MIDDLE) then
         app.fgColor = ev.color
-        dlg:close()
-        showColors()
+        showColors(ev.color, FGcache, BGcache, dlg.bounds)
       end
+      dlg:close()
     end
   }:shades {
      -- SATURATION
@@ -170,15 +194,17 @@ function showColors()
     label = "Sat",
     colors = {C1, C2, C3, C, C5, C6, C7},
     onclick = function(ev)
-      if(ev.button == 1) then
+      if(ev.button == MouseButton.LEFT) then
         app.fgColor = ev.color
-      elseif(ev.button == 2) then
+        showColors(SCcache, FGcache, BGcache, dlg.bounds)
+      elseif(ev.button == MouseButton.RIGHT) then
         app.bgColor = ev.color
-      elseif(ev.button == 3) then
+        showColors(SCcache, FGcache, BGcache, dlg.bounds)
+      elseif(ev.button == MouseButton.MIDDLE) then
         app.fgColor = ev.color
-        dlg:close()
-        showColors()
+        showColors(ev.color, FGcache, BGcache, dlg.bounds)
       end
+      dlg:close()
     end
   }:shades {
      -- HUE
@@ -186,22 +212,24 @@ function showColors()
     label = "Hue",
     colors = {H1, H2, H3, C, H5, H6, H7},
     onclick = function(ev)
-      if(ev.button == 1) then
+      if(ev.button == MouseButton.LEFT) then
         app.fgColor = ev.color
-      elseif(ev.button == 2) then
+        showColors(SCcache, FGcache, BGcache, dlg.bounds)
+      elseif(ev.button == MouseButton.RIGHT) then
         app.bgColor = ev.color
-      elseif(ev.button == 3) then
+        showColors(SCcache, FGcache, BGcache, dlg.bounds)
+      elseif(ev.button == MouseButton.MIDDLE) then
         app.fgColor = ev.color
-        dlg:close()
-        showColors()
+        showColors(ev.color, FGcache, BGcache, dlg.bounds)
       end
+      dlg:close()
     end
   }
 
-  dlg:show {wait = false, bounds = ColorShadingWindowBounds}
+  dlg:show {wait = false, bounds = windowBounds}
 end
 
 -- Run the script
 do
-  showColors()
+  showColors(app.fgColor)
 end
