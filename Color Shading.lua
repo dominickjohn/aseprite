@@ -160,15 +160,13 @@ function showColors(shadingColor, fg, bg, windowBounds)
     onclick = function(ev)
       if(ev.button == MouseButton.LEFT) then
         app.fgColor = ev.color
-        showColors(SCcache, FGcache, BGcache, dlg.bounds)
       elseif(ev.button == MouseButton.RIGHT) then
         app.bgColor = ev.color
-        showColors(SCcache, FGcache, BGcache, dlg.bounds)
       elseif(ev.button == MouseButton.MIDDLE) then
         app.fgColor = ev.color
-        showColors(ev.color, FGcache, BGcache, dlg.bounds)
+        showColors(ev.color, ev.color, BGcache, dlg.bounds)
+        dlg:close()
       end
-      dlg:close()
     end
   }:shades {
      -- LIGHTNESS
@@ -178,15 +176,13 @@ function showColors(shadingColor, fg, bg, windowBounds)
     onclick = function(ev)
       if(ev.button == MouseButton.LEFT) then
         app.fgColor = ev.color
-        showColors(SCcache, FGcache, BGcache, dlg.bounds)
       elseif(ev.button == MouseButton.RIGHT) then
         app.bgColor = ev.color
-        showColors(SCcache, FGcache, BGcache, dlg.bounds)
       elseif(ev.button == MouseButton.MIDDLE) then
         app.fgColor = ev.color
-        showColors(ev.color, FGcache, BGcache, dlg.bounds)
+        showColors(ev.color, ev.color, BGcache, dlg.bounds)
+        dlg:close()
       end
-      dlg:close()
     end
   }:shades {
      -- SATURATION
@@ -196,15 +192,13 @@ function showColors(shadingColor, fg, bg, windowBounds)
     onclick = function(ev)
       if(ev.button == MouseButton.LEFT) then
         app.fgColor = ev.color
-        showColors(SCcache, FGcache, BGcache, dlg.bounds)
       elseif(ev.button == MouseButton.RIGHT) then
         app.bgColor = ev.color
-        showColors(SCcache, FGcache, BGcache, dlg.bounds)
       elseif(ev.button == MouseButton.MIDDLE) then
         app.fgColor = ev.color
-        showColors(ev.color, FGcache, BGcache, dlg.bounds)
+        showColors(ev.color, ev.color, BGcache, dlg.bounds)
+        dlg:close()
       end
-      dlg:close()
     end
   }:shades {
      -- HUE
@@ -214,18 +208,18 @@ function showColors(shadingColor, fg, bg, windowBounds)
     onclick = function(ev)
       if(ev.button == MouseButton.LEFT) then
         app.fgColor = ev.color
-        showColors(SCcache, FGcache, BGcache, dlg.bounds)
+        --showColors(SCcache, FGcache, BGcache, dlg.bounds)
       elseif(ev.button == MouseButton.RIGHT) then
         app.bgColor = ev.color
-        showColors(SCcache, FGcache, BGcache, dlg.bounds)
+        --showColors(SCcache, FGcache, BGcache, dlg.bounds)
       elseif(ev.button == MouseButton.MIDDLE) then
         app.fgColor = ev.color
-        showColors(ev.color, FGcache, BGcache, dlg.bounds)
+        showColors(ev.color, ev.color, BGcache, dlg.bounds)
+        dlg:close()
       end
-      dlg:close()
     end
   }
-
+  
   dlg:show {wait = false, bounds = windowBounds}
 end
 
